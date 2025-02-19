@@ -1,10 +1,12 @@
 from PIL import Image, ImageShow
 
+ruta_pokemon = "C:/Users/yohov/OneDrive/Desktop/pokemon/BWP_ES_BW59.png"
+ruta_imagen = "C:/Users/yohov/OneDrive/Desktop/pokemon/test.jpg"
 
-img = Image.open("C:/Users/yohov/OneDrive/Desktop/pokemon/BWP_ES_BW59.png")
+img = Image.open(ruta_pokemon)
 img = img.convert("RGBA")
 
-art = Image.open("C:/Users/yohov/OneDrive/Desktop/pokemon/test.jpg")
+art = Image.open(ruta_imagen)
 pixdata = img.load()
 
 base_width = 204
