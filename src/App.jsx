@@ -1,34 +1,49 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
+import banner from "./assets/images/poke_banner.png"
+import Navbar from 'react-bootstrap/Navbar';
+import TCGCard from './components/TCGcard';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import background from './assets/images/background.jpg'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const myStyle = {
+    backgroundImage: `url(${background})`,
+    height: "100vh",
+    marginTop: "-70px",
+    backgroundSize: "cover",
+    backgroundRepeat: "repeat",
+    flex: "1"
+    }
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Container fluid style={myStyle}>
+      <Navbar className="bg-body-tertiary">
+          <Container fluid>
+          <Image src={banner} />
+          </Container>
+      </Navbar>
+      <Container fluid>
+        <Row>
+          <Col><TCGCard /></Col>
+          <Col><TCGCard /></Col>
+          <Col><TCGCard /></Col>
+          <Col><TCGCard /></Col>
+          <Col><TCGCard /></Col>
+        </Row><br />
+        <Row>
+          <Col><TCGCard /></Col>
+          <Col><TCGCard /></Col>
+          <Col><TCGCard /></Col>
+          <Col><TCGCard /></Col>
+          <Col><TCGCard /></Col>
+        </Row>
+        
+      </Container>
+
+    </Container>
   )
 }
 
