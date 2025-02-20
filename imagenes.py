@@ -1,7 +1,7 @@
 from PIL import Image, ImageShow
 
-ruta_pokemon = "C:/Users/yohov/OneDrive/Desktop/pokemon/BWP_ES_BW59.png"
-ruta_imagen = "C:/Users/yohov/OneDrive/Desktop/pokemon/test.jpg"
+ruta_pokemon = "/home/yohovaniv/Documentos/TCG-Generator/src/assets/images/cards/agua.png"
+ruta_imagen = "/home/yohovaniv/Documentos/TCG-Generator/src/assets/images/cards/dragon.png"
 
 img = Image.open(ruta_pokemon)
 img = img.convert("RGBA")
