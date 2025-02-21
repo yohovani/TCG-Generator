@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
@@ -10,6 +10,8 @@ import Col from 'react-bootstrap/Col';
 import background from './assets/images/background.jpg'
 import './App.css'
 import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 //Importaciòn de las cartas
 
@@ -35,6 +37,37 @@ function App() {
     backgroundRepeat: "repeat",
     flex: "1"
     }
+
+
+
+    const [selectedFile, setSelectedFile] = useState()
+    const [preview, setPreview] = useState()
+
+    // create a preview as a side effect, whenever selected file is changed
+    useEffect(() => {
+        if (!selectedFile) {
+            setPreview(undefined)
+            return
+        }
+
+        const objectUrl = URL.createObjectURL(selectedFile)
+        setPreview(objectUrl)
+
+        // free memory when ever this component is unmounted
+        return () => URL.revokeObjectURL(objectUrl)
+    }, [selectedFile])
+
+    const onSelectFile = e => {
+        if (!e.target.files || e.target.files.length === 0) {
+            setSelectedFile(undefined)
+            return
+        }
+
+        // I've kept this example simple by using the first image instead of multiple
+        setSelectedFile(e.target.files[0])
+    }
+
+
   return (
     <Container fluid style={myStyle}>
 
@@ -53,13 +86,35 @@ function App() {
             <Col><TCGCard src={planta} title="Tipo Planta" color="success"/></Col>
             <Col><TCGCard src={agua} title="Tipo Agua" color="info"/></Col>
             <Col><TCGCard src={fuego} title="Tipo Fuego" color="danger"/></Col>
+            <Col><TCGCard src={electrico} title="Tipo Electrico" color="warning"/></Col>
           </Row><br />
           <Row> 
-            <Col><TCGCard src={electrico} title="Tipo Electrico" color="warning"/></Col>
             <Col><TCGCard src={normal} title="Tipo Normal" color="light"/></Col>
+            <Col><TCGCard src={psiquico} title="Tipo Psiquico" color="light"/></Col>
             <Col><TCGCard src={siniestro} title="Tipo siniestro" color="dark"/></Col>
-          </Row>
+            <Col><TCGCard src={metal} title="Tipo Metal" color="secondary"/></Col>
+          </Row><br />
+          <Row> 
+            <Col><TCGCard src={lucha} title="Tipo Lucha" color="danger"/></Col>
+            <Col><TCGCard src={dragon} title="Tipo Dragon" color="warning"/></Col>
+            <Col><TCGCard src={hada} title="Tipo Hada" color="light"/></Col>
+          </Row><br />
+          <div className="d-grid gap-2">
+              <Button variant="primary" size="lg">Sorprendeme</Button>
+          </div>
+          </Accordion.Body>
+        </Accordion.Item>
 
+        <Accordion.Item eventKey="1">
+          <Accordion.Header>Selecciona tu foto</Accordion.Header>
+          <Accordion.Body>
+            <Form.Group controlId="formFileLg" className="mb-3">
+              <Form.Label>Selecciona tu imagen favorita</Form.Label>
+              <Form.Control type="file" size="lg" onChange={onSelectFile}/>
+            </Form.Group>
+            <Container fluid className='d-flex justify-content-center'>
+              {selectedFile &&  <Image src={preview} thumbnail/> }
+            </Container>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
