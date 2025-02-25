@@ -91,7 +91,7 @@ function App() {
           <Row> 
             <Col><TCGCard src={normal} title="Tipo Normal" color="light"/></Col>
             <Col><TCGCard src={psiquico} title="Tipo Psiquico" color="light"/></Col>
-            <Col><TCGCard src={siniestro} title="Tipo siniestro" color="dark"/></Col>
+            <Col><TCGCard src={siniestro} title="Tipo siniestro" color="purple"/></Col>
             <Col><TCGCard src={metal} title="Tipo Metal" color="secondary"/></Col>
           </Row><br />
           <Row> 
@@ -113,10 +113,27 @@ function App() {
               <Form.Control type="file" size="lg" onChange={onSelectFile}/>
             </Form.Group>
             <Container fluid className='d-flex justify-content-center'>
-              {selectedFile &&  <Image src={preview} thumbnail/> }
+              {selectedFile &&  <Image src={preview} thumbnail className='image-preview'/> }
             </Container>
+            <Button variant="primary" size="lg">Aceptar</Button>
           </Accordion.Body>
         </Accordion.Item>
+
+        <Accordion.Item eventKey="2">
+          <Accordion.Header>Aqui esta tu carta</Accordion.Header>
+          <Accordion.Body>
+            <Form.Group controlId="formFileLg" className="mb-3">
+              <Form.Label>Selecciona tu imagen favorita</Form.Label>
+              <Form.Control type="file" size="lg" onChange={onSelectFile}/>
+            </Form.Group>
+            <Container fluid className='d-flex justify-content-center'>
+              {selectedFile &&  <Image src={preview} thumbnail className='image-preview'/> }
+            </Container>
+            <Button variant="primary" size="lg">Aceptar</Button>
+          </Accordion.Body>
+        </Accordion.Item>
+
+
       </Accordion>
 
     </Container>

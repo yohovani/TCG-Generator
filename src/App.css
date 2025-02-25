@@ -4,3 +4,7 @@
   display: block; /* Evita márgenes extra */
 }
 
+
+.image-preview {
+  max-width: 25%;
+}

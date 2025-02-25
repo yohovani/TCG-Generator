@@ -6,7 +6,7 @@ function TCGCard(props) {
         <Card style={{ width: '18rem' }} bg={props.color}>
             <Card.Body>
                 <Card.Title>{props.title}</Card.Title>
-                <Image src={props.src} thumbnail />
+                <Image src={props.src}  />
             </Card.Body>
         </Card>
     )
