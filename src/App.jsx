@@ -12,7 +12,7 @@ import './App.css'
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
+import CardResult from './components/cardResult';
 //Importaciòn de las cartas
 
 import agua from './assets/images/cards/agua.png'
@@ -43,6 +43,8 @@ function App() {
     const [selectedFile, setSelectedFile] = useState()
     const [preview, setPreview] = useState()
 
+    const [imgSrc, setImgSrc] = useState("");
+
     // create a preview as a side effect, whenever selected file is changed
     useEffect(() => {
         if (!selectedFile) {
@@ -67,6 +69,10 @@ function App() {
         setSelectedFile(e.target.files[0])
     }
 
+    function handleSubmit(e) {
+      setImgSrc(e.target.value)
+    }
+
 
   return (
     <Container fluid style={myStyle}>
@@ -82,23 +88,26 @@ function App() {
         <Accordion.Item eventKey="0">
           <Accordion.Header>Selecciona el tipo de Carta</Accordion.Header>
           <Accordion.Body>
-            <Row>
-            <Col><TCGCard src={planta} title="Tipo Planta" color="success"/></Col>
-            <Col><TCGCard src={agua} title="Tipo Agua" color="info"/></Col>
-            <Col><TCGCard src={fuego} title="Tipo Fuego" color="danger"/></Col>
-            <Col><TCGCard src={electrico} title="Tipo Electrico" color="warning"/></Col>
-          </Row><br />
-          <Row> 
-            <Col><TCGCard src={normal} title="Tipo Normal" color="light"/></Col>
-            <Col><TCGCard src={psiquico} title="Tipo Psiquico" color="light"/></Col>
-            <Col><TCGCard src={siniestro} title="Tipo siniestro" color="purple"/></Col>
-            <Col><TCGCard src={metal} title="Tipo Metal" color="secondary"/></Col>
-          </Row><br />
-          <Row> 
-            <Col><TCGCard src={lucha} title="Tipo Lucha" color="danger"/></Col>
-            <Col><TCGCard src={dragon} title="Tipo Dragon" color="warning"/></Col>
-            <Col><TCGCard src={hada} title="Tipo Hada" color="light"/></Col>
-          </Row><br />
+
+            <Form.Select aria-label="Selecciona el tipo de Carta" id="card_select" onChange={handleSubmit}>
+              <option value={planta}>Tipo Planta</option>
+              <option value={fuego}>Tipo Fuego</option>
+              <option value={agua}>Tipo Agua</option>
+              <option value={electrico}>Tipo Electrico</option>
+              <option value={normal}>Tipo Normal</option>
+              <option value={psiquico}>Tipo Psiquico</option>
+              <option value={siniestro}>Tipo siniestro</option>
+              <option value={metal}>Tipo Metal</option>
+              <option value={lucha}>Tipo Lucha</option>
+              <option value={dragon}>Tipo Dragon</option>
+              <option value={hada}>Tipo Hada</option>
+            </Form.Select>< br />
+
+            <Container fluid className='d-flex justify-content-center'>
+              <TCGCard src={imgSrc} title="Tipo Planta" color="success" id="card"/>
+            </Container>
+
+            <br />
           <div className="d-grid gap-2">
               <Button variant="primary" size="lg">Sorprendeme</Button>
           </div>
@@ -122,12 +131,9 @@ function App() {
         <Accordion.Item eventKey="2">
           <Accordion.Header>Aqui esta tu carta</Accordion.Header>
           <Accordion.Body>
-            <Form.Group controlId="formFileLg" className="mb-3">
-              <Form.Label>Selecciona tu imagen favorita</Form.Label>
-              <Form.Control type="file" size="lg" onChange={onSelectFile}/>
-            </Form.Group>
+            
             <Container fluid className='d-flex justify-content-center'>
-              {selectedFile &&  <Image src={preview} thumbnail className='image-preview'/> }
+              
             </Container>
             <Button variant="primary" size="lg">Aceptar</Button>
           </Accordion.Body>
