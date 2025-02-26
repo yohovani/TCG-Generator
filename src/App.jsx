@@ -43,8 +43,10 @@ function App() {
     const [selectedFile, setSelectedFile] = useState()
     const [preview, setPreview] = useState()
 
-    const [imgSrc, setImgSrc] = useState("");
-
+    const [imgSrc, setImgSrc] = useState();
+    const [title_card_select, setTitle_card_select] = useState();
+    
+    const [bg_color, setBg_color] = useState();
     // create a preview as a side effect, whenever selected file is changed
     useEffect(() => {
         if (!selectedFile) {
@@ -70,7 +72,76 @@ function App() {
     }
 
     function handleSubmit(e) {
-      setImgSrc(e.target.value)
+      
+      switch(e.target.value){
+        case "/src/assets/images/cards/planta.png":{
+          setTitle_card_select("Tipo Planta")
+          setImgSrc(planta)
+          setBg_color("#77bf00")
+          break
+        }
+        case "/src/assets/images/cards/fuego.png":{
+          setTitle_card_select("Tipo Fuego")
+          setImgSrc(fuego)
+          setBg_color("#de4711")
+          break
+        }
+        case "/src/assets/images/cards/agua.png":{
+          setTitle_card_select("Tipo Agua")
+          setImgSrc(agua)
+          setBg_color("#33e0ff")
+          break
+        }
+        case "/src/assets/images/cards/electrico.png":{
+          setTitle_card_select("Tipo Electrico")
+          setImgSrc(electrico)
+          setBg_color("#fbeb00")
+          break
+        }
+        case "/src/assets/images/cards/normal.png":{
+          setTitle_card_select("Tipo Normal")
+          setBg_color("#ebebeb")
+          setImgSrc(normal)
+          break
+        }
+        case "/src/assets/images/cards/psiquico.png":{
+          setTitle_card_select("Tipo Psiquico")
+          setImgSrc(psiquico)
+          setBg_color("#b380b8")
+          break
+        }
+        case "/src/assets/images/cards/siniestro.png":{
+          setTitle_card_select("Tipo Siniestro")
+          setImgSrc(siniestro)
+          setBg_color("#005666")
+          break
+        }
+        case "/src/assets/images/cards/metal.png":{
+          setTitle_card_select("Tipo Metal")
+          setImgSrc(metal)
+          setBg_color("#9c979d")
+          break
+        }
+        case "/src/assets/images/cards/lucha.png":{
+          setTitle_card_select("Tipo Lucha")
+          setImgSrc(lucha)
+          setBg_color("#db8410")
+          break
+        }
+        case "/src/assets/images/cards/dragon.png":{
+          setTitle_card_select("Tipo Dragon")
+          setImgSrc(dragon)
+          setBg_color("#716b3b")
+          break
+        }
+        case "/src/assets/images/cards/hada.png":{
+          setTitle_card_select("Tipo Hada")
+          setBg_color("#eb00fd")
+          setImgSrc(hada)
+          break
+        }
+      }
+      
     }
 
 
@@ -90,6 +161,7 @@ function App() {
           <Accordion.Body>
 
             <Form.Select aria-label="Selecciona el tipo de Carta" id="card_select" onChange={handleSubmit}>
+              <option >Selecciona tu tipo de carta</option>
               <option value={planta}>Tipo Planta</option>
               <option value={fuego}>Tipo Fuego</option>
               <option value={agua}>Tipo Agua</option>
@@ -104,12 +176,12 @@ function App() {
             </Form.Select>< br />
 
             <Container fluid className='d-flex justify-content-center'>
-              <TCGCard src={imgSrc} title="Tipo Planta" color="success" id="card"/>
+              <TCGCard src={imgSrc} title={title_card_select} color={bg_color} id="card"/>
             </Container>
 
             <br />
           <div className="d-grid gap-2">
-              <Button variant="primary" size="lg">Sorprendeme</Button>
+              <Button className='animated-button' variant="primary" size="lg">Sorprendeme</Button>
           </div>
           </Accordion.Body>
         </Accordion.Item>

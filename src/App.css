@@ -8,3 +8,28 @@
 .image-preview {
   max-width: 25%;
 }
+
+/*Inicio de animación en boton*/
+.animated-button {
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 18px;
+  color: #fff;
+  text-decoration: none;
+  overflow: hidden;
+  background: linear-gradient(45deg, #ff0057, #e64a19, #fbc02d, #00bcd4, #8bc34a, #ff0057);
+  background-size: 600%;
+  border: none;
+  cursor: pointer;
+  transition: background-position 0.5s;
+}
+
+.animated-button:hover {
+  animation: animateBackground 8s linear infinite;
+}
+
+@keyframes animateBackground {
+  0% { background-position: 0% 50%; }
+  100% { background-position: -600% 50%; }
+}
