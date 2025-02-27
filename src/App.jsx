@@ -12,7 +12,7 @@ import './App.css'
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import CardResult from './components/cardResult';
+import ImageProcessor from './components/ImageProcessor';
 //Importaciòn de las cartas
 
 import agua from './assets/images/cards/agua.png'
@@ -40,6 +40,12 @@ function App() {
 
 
 
+    const [mostrarProcesador, setMostrarProcesador] = useState(false);
+
+    const generarCarta = () => {
+      setMostrarProcesador(true); // Activa el componente
+    };
+
     const [selectedFile, setSelectedFile] = useState()
     const [preview, setPreview] = useState()
 
@@ -47,6 +53,7 @@ function App() {
     const [title_card_select, setTitle_card_select] = useState();
     
     const [bg_color, setBg_color] = useState();
+    const [image_card, setImage_card] = useState()
     // create a preview as a side effect, whenever selected file is changed
     useEffect(() => {
         if (!selectedFile) {
@@ -55,6 +62,7 @@ function App() {
         }
 
         const objectUrl = URL.createObjectURL(selectedFile)
+        setImage_card(objectUrl)
         setPreview(objectUrl)
 
         // free memory when ever this component is unmounted
@@ -196,7 +204,7 @@ function App() {
             <Container fluid className='d-flex justify-content-center'>
               {selectedFile &&  <Image src={preview} thumbnail className='image-preview'/> }
             </Container>
-            <Button variant="primary" size="lg">Aceptar</Button>
+            <Button variant="primary" size="lg" onClick={generarCarta}>Aceptar</Button>
           </Accordion.Body>
         </Accordion.Item>
 
@@ -205,7 +213,7 @@ function App() {
           <Accordion.Body>
             
             <Container fluid className='d-flex justify-content-center'>
-              
+              {mostrarProcesador && <ImageProcessor image={image_card} card={agua} />}
             </Container>
             <Button variant="primary" size="lg">Aceptar</Button>
           </Accordion.Body>

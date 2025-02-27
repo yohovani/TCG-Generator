@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const ImageProcessor = () => {
+const ImageProcessor = (props) => {
   const [imageSrc, setImageSrc] = useState(null);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const ImageProcessor = () => {
 
         // Cargar la imagen base
         const img = new Image();
-        img.src = "/images/agua.png"; // Cambia a la ruta de tu imagen en public/
+        img.src = props.card; // Cambia a la ruta de tu imagen en public/
         await img.decode();
 
         // Definir tamaño del canvas
@@ -23,7 +23,7 @@ const ImageProcessor = () => {
 
         // Cargar la imagen a superponer
         const art = new Image();
-        art.src = "/images/dragon.png"; // Cambia a la ruta correcta
+        art.src = props.image; // Cambia a la ruta correcta
         await art.decode();
 
         // Redimensionar la imagen a 204px de ancho
