@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef  } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
@@ -47,6 +47,9 @@ function App() {
     const [image_card, setImage_card] = useState()
     const [accor_usr_img, setAccor_usr_img] = useState(false)
     const [accord_result, setAccord_result] = useState(false)
+    const [btn_card_select, setBtn_card_select] = useState(false)
+    const [activeKey, setActiveKey] = useState("0"); // Inicia con el primer item abierto
+
     // create a preview as a side effect, whenever selected file is changed
     useEffect(() => {
         if (!selectedFile) {
@@ -78,6 +81,7 @@ function App() {
           setTitle_card_select("Tipo Planta")
           setImgSrc(planta)
           setCard_selection(planta)
+          setBtn_card_select(true)
           setBg_color("#77bf00")
           break
         }
@@ -151,6 +155,9 @@ function App() {
           setImgSrc(hada)
           break
         }
+        default:{
+          setBtn_card_select(false)
+        }
       }
           
     }
@@ -158,13 +165,18 @@ function App() {
     const generarCarta = () => {
       setMostrarProcesador(true); // Activa el componente
       setAccord_result(true)
+      avanzarPaso("2")
     };
 
     function show_AccordionImgUsr () {
       setAccor_usr_img(true)
+      avanzarPaso("1")
     }
 
-    
+    const avanzarPaso = (nextKey) => {
+      setActiveKey(nextKey); // Mueve al siguiente paso
+    };
+
 
   return (
     <Container fluid style={myStyle}>
@@ -176,7 +188,7 @@ function App() {
       <hr />
 
 
-      <Accordion flush>
+      <Accordion activeKey={activeKey} onSelect={setActiveKey} flush>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Selecciona el tipo de Carta</Accordion.Header>
           <Accordion.Body>
@@ -205,7 +217,7 @@ function App() {
               <Button className='animated-button' variant="primary" size="lg">Sorprendeme</Button>
           </div><br />
           <div className="d-grid gap-2">
-              <Button variant="primary" size="lg" onClick={show_AccordionImgUsr}>Continuar</Button>
+              <Button variant="primary" size="lg" onClick={show_AccordionImgUsr} disabled={btn_card_select}>Continuar</Button>
           </div>
           </Accordion.Body>
         </Accordion.Item>
