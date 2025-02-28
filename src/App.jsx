@@ -217,7 +217,7 @@ function App() {
               <Button className='animated-button' variant="primary" size="lg">Sorprendeme</Button>
           </div><br />
           <div className="d-grid gap-2">
-              <Button variant="primary" size="lg" onClick={show_AccordionImgUsr} >Continuar</Button>
+              <Button variant="primary" size="lg" onClick={show_AccordionImgUsr} disabled={btn_card_select}>Continuar</Button>
           </div>
           </Accordion.Body>
         </Accordion.Item>
