@@ -10,6 +10,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ImageProcessor from './components/ImageProcessor';
+import ImageMerger from "./components/ImageMerger"
 //Importaciòn de las cartas
 
 import agua from './assets/images/cards/agua.png'
@@ -49,6 +50,8 @@ function App() {
     const [accord_result, setAccord_result] = useState(false)
     const [btn_card_select, setBtn_card_select] = useState(false)
     const [activeKey, setActiveKey] = useState("0"); // Inicia con el primer item abierto
+    
+    const [accor_usr_img_FA, setAccor_usr_img_FA] = useState(false)
 
     // create a preview as a side effect, whenever selected file is changed
     useEffect(() => {
@@ -173,6 +176,12 @@ function App() {
       avanzarPaso("1")
     }
 
+    function show_FullArtImg () {
+      setAccor_usr_img_FA(true)
+      setAccor_usr_img(true)
+      avanzarPaso("1")
+    }
+
     const avanzarPaso = (nextKey) => {
       setActiveKey(nextKey); // Mueve al siguiente paso
     };
@@ -214,10 +223,10 @@ function App() {
 
             <br />
           <div className="d-grid gap-2">
-              <Button className='animated-button' variant="primary" size="lg">Sorprendeme</Button>
+              <Button className='animated-button' variant="primary" size="lg" onClick={show_FullArtImg}>Sorprendeme</Button>
           </div><br />
           <div className="d-grid gap-2">
-              <Button variant="primary" size="lg" onClick={show_AccordionImgUsr} disabled={btn_card_select}>Continuar</Button>
+              <Button variant="primary" size="lg" onClick={show_AccordionImgUsr} >Continuar</Button>
           </div>
           </Accordion.Body>
         </Accordion.Item>
@@ -249,6 +258,8 @@ function App() {
               
               <Container fluid className='d-flex justify-content-center'>
                 {mostrarProcesador && <ImageProcessor image={image_card} card={card_selection} />}
+                {accor_usr_img_FA && <ImageMerger fondoUrl={image_card} />}
+                
               </Container>
               <Button variant="primary" size="lg">Aceptar</Button>
             </Accordion.Body>
