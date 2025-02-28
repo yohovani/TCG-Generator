@@ -23,6 +23,7 @@ import normal from './assets/images/cards/normal.png'
 import planta from './assets/images/cards/planta.png'
 import psiquico from './assets/images/cards/psiquico.png'
 import siniestro from './assets/images/cards/siniestro.png'
+import { meta } from '@eslint/js';
 
 
 function App() {
@@ -35,22 +36,17 @@ function App() {
     flex: "1"
     }
 
-
-
+    // Estadps
+    const [card_selection, setCard_selection] = useState(false);
     const [mostrarProcesador, setMostrarProcesador] = useState(false);
-
-    const generarCarta = () => {
-      setMostrarProcesador(true); // Activa el componente
-    };
-
     const [selectedFile, setSelectedFile] = useState()
     const [preview, setPreview] = useState()
-
     const [imgSrc, setImgSrc] = useState();
-    const [title_card_select, setTitle_card_select] = useState();
-    
+    const [title_card_select, setTitle_card_select] = useState();   
     const [bg_color, setBg_color] = useState();
     const [image_card, setImage_card] = useState()
+    const [accor_usr_img, setAccor_usr_img] = useState(false)
+    const [accord_result, setAccord_result] = useState(false)
     // create a preview as a side effect, whenever selected file is changed
     useEffect(() => {
         if (!selectedFile) {
@@ -76,72 +72,82 @@ function App() {
         setSelectedFile(e.target.files[0])
     }
 
-    function handleSubmit(e) {
-      console.log(e.target.value)
+    function card_select(e) {
       switch(e.target.value){
         case "planta":{
           setTitle_card_select("Tipo Planta")
           setImgSrc(planta)
+          setCard_selection(planta)
           setBg_color("#77bf00")
           break
         }
         case "fuego":{
           setTitle_card_select("Tipo Fuego")
           setImgSrc(fuego)
+          setCard_selection(fuego)
           setBg_color("#de4711")
           break
         }
         case "agua":{
           setTitle_card_select("Tipo Agua")
           setImgSrc(agua)
+          setCard_selection(agua)
           setBg_color("#33e0ff")
           break
         }
         case "electrico":{
           setTitle_card_select("Tipo Electrico")
           setImgSrc(electrico)
+          setCard_selection(electrico)
           setBg_color("#fbeb00")
           break
         }
         case "normal":{
           setTitle_card_select("Tipo Normal")
           setBg_color("#ebebeb")
+          setCard_selection(normal)
           setImgSrc(normal)
           break
         }
         case "psiquico":{
           setTitle_card_select("Tipo Psiquico")
           setImgSrc(psiquico)
+          setCard_selection(psiquico)
           setBg_color("#b380b8")
           break
         }
         case "siniestro":{
           setTitle_card_select("Tipo Siniestro")
           setImgSrc(siniestro)
+          setCard_selection(siniestro)
           setBg_color("#005666")
           break
         }
         case "metal":{
           setTitle_card_select("Tipo Metal")
           setImgSrc(metal)
+          setCard_selection(metal)
           setBg_color("#9c979d")
           break
         }
         case "lucha":{
           setTitle_card_select("Tipo Lucha")
           setImgSrc(lucha)
+          setCard_selection(lucha)
           setBg_color("#db8410")
           break
         }
         case "dragon":{
           setTitle_card_select("Tipo Dragon")
           setImgSrc(dragon)
+          setCard_selection(dragon)
           setBg_color("#716b3b")
           break
         }
         case "hada":{
           setTitle_card_select("Tipo Hada")
           setBg_color("#eb00fd")
+          setCard_selection(hada)
           setImgSrc(hada)
           break
         }
@@ -149,6 +155,16 @@ function App() {
           
     }
 
+    const generarCarta = () => {
+      setMostrarProcesador(true); // Activa el componente
+      setAccord_result(true)
+    };
+
+    function show_AccordionImgUsr () {
+      setAccor_usr_img(true)
+    }
+
+    
 
   return (
     <Container fluid style={myStyle}>
@@ -165,7 +181,7 @@ function App() {
           <Accordion.Header>Selecciona el tipo de Carta</Accordion.Header>
           <Accordion.Body>
 
-            <Form.Select aria-label="Selecciona el tipo de Carta" id="card_select" onChange={handleSubmit}>
+            <Form.Select aria-label="Selecciona el tipo de Carta" id="card_select" onChange={card_select}>
               <option >Selecciona tu tipo de carta</option>
               <option value="planta">Tipo Planta</option>
               <option value="fuego">Tipo Fuego</option>
@@ -187,34 +203,45 @@ function App() {
             <br />
           <div className="d-grid gap-2">
               <Button className='animated-button' variant="primary" size="lg">Sorprendeme</Button>
+          </div><br />
+          <div className="d-grid gap-2">
+              <Button variant="primary" size="lg" onClick={show_AccordionImgUsr}>Continuar</Button>
           </div>
           </Accordion.Body>
         </Accordion.Item>
 
-        <Accordion.Item eventKey="1">
-          <Accordion.Header>Selecciona tu foto</Accordion.Header>
-          <Accordion.Body>
-            <Form.Group controlId="formFileLg" className="mb-3">
-              <Form.Label>Selecciona tu imagen favorita</Form.Label>
-              <Form.Control type="file" size="lg" onChange={onSelectFile}/>
-            </Form.Group>
-            <Container fluid className='d-flex justify-content-center'>
-              {selectedFile &&  <Image src={preview} thumbnail className='image-preview'/> }
-            </Container>
-            <Button variant="primary" size="lg" onClick={generarCarta}>Aceptar</Button>
-          </Accordion.Body>
-        </Accordion.Item>
+        { accor_usr_img && 
 
-        <Accordion.Item eventKey="2">
-          <Accordion.Header>Aqui esta tu carta</Accordion.Header>
-          <Accordion.Body>
-            
-            <Container fluid className='d-flex justify-content-center'>
-              {mostrarProcesador && <ImageProcessor image={image_card} card={agua} />}
-            </Container>
-            <Button variant="primary" size="lg">Aceptar</Button>
-          </Accordion.Body>
-        </Accordion.Item>
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>Selecciona tu foto</Accordion.Header>
+            <Accordion.Body>
+              <Form.Group controlId="formFileLg" className="mb-3">
+                <Form.Label>Selecciona tu imagen favorita</Form.Label>
+                <Form.Control type="file" size="lg" onChange={onSelectFile}/>
+              </Form.Group>
+              <Container fluid className='d-flex justify-content-center'>
+                {selectedFile &&  <Image src={preview} thumbnail className='image-preview'/> }
+              </Container>
+              <br />
+              <div className="d-grid gap-2">
+                  <Button variant="primary" size="lg" onClick={generarCarta}>Generar Carta</Button>
+              </div>
+            </Accordion.Body>
+          </Accordion.Item> 
+        }
+
+        { accord_result &&
+          <Accordion.Item eventKey="2">
+            <Accordion.Header>Aqui esta tu carta</Accordion.Header>
+            <Accordion.Body>
+              
+              <Container fluid className='d-flex justify-content-center'>
+                {mostrarProcesador && <ImageProcessor image={image_card} card={card_selection} />}
+              </Container>
+              <Button variant="primary" size="lg">Aceptar</Button>
+            </Accordion.Body>
+          </Accordion.Item>
+        }
 
 
       </Accordion>
