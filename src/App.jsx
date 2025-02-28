@@ -79,74 +79,74 @@ function App() {
     function handleSubmit(e) {
       console.log(e.target.value)
       switch(e.target.value){
-        case "/TCG-Generator/src/assets/images/cards/planta.png":{
+        case "planta":{
           setTitle_card_select("Tipo Planta")
           setImgSrc(planta)
           setBg_color("#77bf00")
           break
         }
-        case "/TCG-Generator/src/assets/images/cards/fuego.png":{
+        case "fuego":{
           setTitle_card_select("Tipo Fuego")
           setImgSrc(fuego)
           setBg_color("#de4711")
           break
         }
-        case "/TCG-Generator/src/assets/images/cards/agua.png":{
+        case "agua":{
           setTitle_card_select("Tipo Agua")
           setImgSrc(agua)
           setBg_color("#33e0ff")
           break
         }
-        case "/TCG-Generator/src/assets/images/cards/electrico.png":{
+        case "electrico":{
           setTitle_card_select("Tipo Electrico")
           setImgSrc(electrico)
           setBg_color("#fbeb00")
           break
         }
-        case "/TCG-Generator/src/assets/images/cards/normal.png":{
+        case "normal":{
           setTitle_card_select("Tipo Normal")
           setBg_color("#ebebeb")
           setImgSrc(normal)
           break
         }
-        case "/TCG-Generator/src/assets/images/cards/psiquico.png":{
+        case "psiquico":{
           setTitle_card_select("Tipo Psiquico")
           setImgSrc(psiquico)
           setBg_color("#b380b8")
           break
         }
-        case "/TCG-Generator/src/assets/images/cards/siniestro.png":{
+        case "siniestro":{
           setTitle_card_select("Tipo Siniestro")
           setImgSrc(siniestro)
           setBg_color("#005666")
           break
         }
-        case "/TCG-Generator/src/assets/images/cards/metal.png":{
+        case "metal":{
           setTitle_card_select("Tipo Metal")
           setImgSrc(metal)
           setBg_color("#9c979d")
           break
         }
-        case "/TCG-Generator/src/assets/images/cards/lucha.png":{
+        case "lucha":{
           setTitle_card_select("Tipo Lucha")
           setImgSrc(lucha)
           setBg_color("#db8410")
           break
         }
-        case "/TCG-Generator/src/assets/images/cards/dragon.png":{
+        case "dragon":{
           setTitle_card_select("Tipo Dragon")
           setImgSrc(dragon)
           setBg_color("#716b3b")
           break
         }
-        case "/TCG-Generator/src/assets/images/cards/hada.png":{
+        case "hada":{
           setTitle_card_select("Tipo Hada")
           setBg_color("#eb00fd")
           setImgSrc(hada)
           break
         }
       }
-      
+          
     }
 
 
@@ -167,17 +167,17 @@ function App() {
 
             <Form.Select aria-label="Selecciona el tipo de Carta" id="card_select" onChange={handleSubmit}>
               <option >Selecciona tu tipo de carta</option>
-              <option value={planta}>Tipo Planta</option>
-              <option value={fuego}>Tipo Fuego</option>
-              <option value={agua}>Tipo Agua</option>
-              <option value={electrico}>Tipo Electrico</option>
-              <option value={normal}>Tipo Normal</option>
-              <option value={psiquico}>Tipo Psiquico</option>
-              <option value={siniestro}>Tipo siniestro</option>
-              <option value={metal}>Tipo Metal</option>
-              <option value={lucha}>Tipo Lucha</option>
-              <option value={dragon}>Tipo Dragon</option>
-              <option value={hada}>Tipo Hada</option>
+              <option value="planta">Tipo Planta</option>
+              <option value="fuego">Tipo Fuego</option>
+              <option value="agua">Tipo Agua</option>
+              <option value="electrico">Tipo Electrico</option>
+              <option value="normal">Tipo Normal</option>
+              <option value="psiquico">Tipo Psiquico</option>
+              <option value="siniestro">Tipo siniestro</option>
+              <option value="metal">Tipo Metal</option>
+              <option value="lucha">Tipo Lucha</option>
+              <option value="dragon">Tipo Dragon</option>
+              <option value="hada">Tipo Hada</option>
             </Form.Select>< br />
 
             <Container fluid className='d-flex justify-content-center'>
