@@ -3,10 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import banner from "./assets/images/poke_banner.png"
-import Navbar from 'react-bootstrap/Navbar';
 import TCGCard from './components/TCGcard';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import background from './assets/images/background.jpg'
 import './App.css'
 import Accordion from 'react-bootstrap/Accordion';
@@ -80,69 +77,69 @@ function App() {
     }
 
     function handleSubmit(e) {
-      
+      console.log(e.target.value)
       switch(e.target.value){
-        case "/src/assets/images/cards/planta.png":{
+        case "/TCG-Generator/src/assets/images/cards/planta.png":{
           setTitle_card_select("Tipo Planta")
           setImgSrc(planta)
           setBg_color("#77bf00")
           break
         }
-        case "/src/assets/images/cards/fuego.png":{
+        case "/TCG-Generator/src/assets/images/cards/fuego.png":{
           setTitle_card_select("Tipo Fuego")
           setImgSrc(fuego)
           setBg_color("#de4711")
           break
         }
-        case "/src/assets/images/cards/agua.png":{
+        case "/TCG-Generator/src/assets/images/cards/agua.png":{
           setTitle_card_select("Tipo Agua")
           setImgSrc(agua)
           setBg_color("#33e0ff")
           break
         }
-        case "/src/assets/images/cards/electrico.png":{
+        case "/TCG-Generator/src/assets/images/cards/electrico.png":{
           setTitle_card_select("Tipo Electrico")
           setImgSrc(electrico)
           setBg_color("#fbeb00")
           break
         }
-        case "/src/assets/images/cards/normal.png":{
+        case "/TCG-Generator/src/assets/images/cards/normal.png":{
           setTitle_card_select("Tipo Normal")
           setBg_color("#ebebeb")
           setImgSrc(normal)
           break
         }
-        case "/src/assets/images/cards/psiquico.png":{
+        case "/TCG-Generator/src/assets/images/cards/psiquico.png":{
           setTitle_card_select("Tipo Psiquico")
           setImgSrc(psiquico)
           setBg_color("#b380b8")
           break
         }
-        case "/src/assets/images/cards/siniestro.png":{
+        case "/TCG-Generator/src/assets/images/cards/siniestro.png":{
           setTitle_card_select("Tipo Siniestro")
           setImgSrc(siniestro)
           setBg_color("#005666")
           break
         }
-        case "/src/assets/images/cards/metal.png":{
+        case "/TCG-Generator/src/assets/images/cards/metal.png":{
           setTitle_card_select("Tipo Metal")
           setImgSrc(metal)
           setBg_color("#9c979d")
           break
         }
-        case "/src/assets/images/cards/lucha.png":{
+        case "/TCG-Generator/src/assets/images/cards/lucha.png":{
           setTitle_card_select("Tipo Lucha")
           setImgSrc(lucha)
           setBg_color("#db8410")
           break
         }
-        case "/src/assets/images/cards/dragon.png":{
+        case "/TCG-Generator/src/assets/images/cards/dragon.png":{
           setTitle_card_select("Tipo Dragon")
           setImgSrc(dragon)
           setBg_color("#716b3b")
           break
         }
-        case "/src/assets/images/cards/hada.png":{
+        case "/TCG-Generator/src/assets/images/cards/hada.png":{
           setTitle_card_select("Tipo Hada")
           setBg_color("#eb00fd")
           setImgSrc(hada)
