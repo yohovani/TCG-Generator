@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Container from 'react-bootstrap/Container';
 
 const ImageProcessor = (props) => {
   const [imageSrc, setImageSrc] = useState(null);
@@ -68,8 +69,25 @@ const ImageProcessor = (props) => {
           }
         }
 
+
+
+
         // Poner la imagen editada en el canvas
         ctx.putImageData(originalImageData, 0, 0);
+
+
+                // Configurar el texto
+      ctx.font = "italic 15px Arial";
+      ctx.fillStyle = "white"; // Color del texto
+      ctx.strokeStyle = "black"; // Borde del texto
+      ctx.lineWidth = 3;
+      // Posicionar el texto en el centro inferior
+      const x = 50;
+      const y = 25;
+
+      // Dibujar borde del texto para que resalte
+      ctx.strokeText(props.title, x, y);
+      ctx.fillText(props.title, x, y);
 
         // Convertir a URL base64 y actualizar el estado
         setImageSrc(canvas.toDataURL("image/png"));
@@ -83,10 +101,10 @@ const ImageProcessor = (props) => {
   }, []);
 
   return (
-    <div className="text-center">
+    <Container fluid className="text-center">
       <h2>Imagen Procesada</h2>
-      {imageSrc ? <img src={imageSrc} alt="Imagen procesada" className="img-fluid" /> : <p>Cargando...</p>}
-    </div>
+      {imageSrc ? <img src={imageSrc} alt="Imagen procesada" className="img-fluid" /> : <br />}
+    </Container>
   );
 };
 

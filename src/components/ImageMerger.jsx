@@ -22,6 +22,22 @@ export default function ImageMerger( props ) {
 
       // Dibujar la imagen transparente sobre el fondo
       ctx.drawImage(imagenTransparente, 0, 0, 736, 1024);
+
+
+      // Configurar el texto
+      ctx.font = "italic 40px Arial";
+      ctx.fillStyle = "white"; // Color del texto
+      ctx.strokeStyle = "black"; // Borde del texto
+      ctx.lineWidth = 3;
+      ctx.textAlign = "center";
+
+      // Posicionar el texto en el centro inferior
+      const x = 255;
+      const y = 80;
+
+      // Dibujar borde del texto para que resalte
+      ctx.strokeText(props.title, x, y);
+      ctx.fillText(props.title, x, y);
     };
 
     mergeImages();

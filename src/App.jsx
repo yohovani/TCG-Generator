@@ -11,6 +11,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ImageProcessor from './components/ImageProcessor';
 import ImageMerger from "./components/ImageMerger"
+import InputGroup from 'react-bootstrap/InputGroup';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 //Importaciòn de las cartas
 
 import agua from './assets/images/cards/agua.png'
@@ -52,7 +55,7 @@ function App() {
     const [activeKey, setActiveKey] = useState("0"); // Inicia con el primer item abierto
     
     const [accor_usr_img_FA, setAccor_usr_img_FA] = useState(false)
-
+    const [cardTittle, setcardTittle] = useState(false)
     // create a preview as a side effect, whenever selected file is changed
     useEffect(() => {
         if (!selectedFile) {
@@ -186,6 +189,10 @@ function App() {
       setActiveKey(nextKey); // Mueve al siguiente paso
     };
 
+    function actualizarTitulo(e){
+      console.log(e.target)
+      setcardTittle(e.target.value)
+    }
 
   return (
     <Container fluid style={myStyle}>
@@ -237,6 +244,18 @@ function App() {
             <Accordion.Header>Selecciona tu foto</Accordion.Header>
             <Accordion.Body>
               <Form.Group controlId="formFileLg" className="mb-3">
+
+                <InputGroup className="mb-3">
+                <InputGroup.Text>Titulo de la carta: </InputGroup.Text>
+                  <Form.Control
+                    placeholder="Titulo de la carta"
+                    aria-label="Titulo de la carta"
+                    aria-describedby="basic-addon2"
+                    maxLength="10"
+                    onChange={actualizarTitulo}
+                  />
+                </InputGroup>
+
                 <Form.Label>Selecciona tu imagen favorita</Form.Label>
                 <Form.Control type="file" size="lg" onChange={onSelectFile}/>
               </Form.Group>
@@ -257,8 +276,16 @@ function App() {
             <Accordion.Body>
               
               <Container fluid className='d-flex justify-content-center'>
-                {mostrarProcesador && <ImageProcessor image={image_card} card={card_selection} />}
-                {accor_usr_img_FA && <ImageMerger fondoUrl={image_card} />}
+
+              <Row>
+                <Col>{mostrarProcesador && <ImageProcessor image={image_card} card={card_selection} title={cardTittle} />}</Col>
+
+              </Row>
+              <Row>
+                <Col>{accor_usr_img_FA && <ImageMerger title={cardTittle} fondoUrl={image_card} />}</Col>
+              </Row>
+                
+                
                 
               </Container>
               <Button variant="primary" size="lg">Aceptar</Button>
