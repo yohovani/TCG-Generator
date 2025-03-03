@@ -1,7 +1,22 @@
 import { useEffect, useRef } from "react";
 import ex_full_art from "../assets/images/cards/ex_full_art.png"
+//Importaciòn de Marcos
+import marco_0 from "../assets/images/cards/Full_Art/Marcos/ex_0.png"
+import marco_1 from "../assets/images/cards/Full_Art/Marcos/ex_1.png"
+import marco_2 from "../assets/images/cards/Full_Art/Marcos/ex_2.png"
+//Importacion de descripciones
+import electrico_ex from "../assets/images/cards/Full_Art/descripciones/electrico_ex.png"
+import psiquico_ex from "../assets/images/cards/Full_Art/descripciones/psiquico_ex.png"
+
 export default function ImageMerger( props ) {
+  const marcos = [marco_0, marco_1, marco_2]
+  const descripciones = [electrico_ex, psiquico_ex]
+
   const canvasRef = useRef(null);
+
+
+  
+  
 
   useEffect(() => {
     const mergeImages = async () => {
@@ -17,11 +32,17 @@ export default function ImageMerger( props ) {
       // Redimensionar y dibujar fondo
       ctx.drawImage(fondo, 0, 0, 736, 1024);
 
-      // Cargar imagen transparente
-      const imagenTransparente = await loadImage(ex_full_art);
+      // Cargar marco transparente
+      const marco = await loadImage(marcos[Math.floor(Math.random() * marcos.length)]);
 
-      // Dibujar la imagen transparente sobre el fondo
-      ctx.drawImage(imagenTransparente, 0, 0, 736, 1024);
+      // Dibujar marco transparente sobre el fondo
+      ctx.drawImage(marco, 0, 0, 736, 1024);
+
+      // Cargar marco transparente
+      const descripcion = await loadImage(descripciones[Math.floor(Math.random() * descripciones.length)]);
+
+      // Dibujar marco transparente sobre el fondo
+      ctx.drawImage(descripcion, 0, 0, 736, 1024);
 
 
       // Configurar el texto
