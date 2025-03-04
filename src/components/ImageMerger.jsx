@@ -8,16 +8,22 @@ import marco_3 from "../assets/images/cards/Full_Art/Marcos/ex_3.png"
 //Importacion de descripciones
 import electrico_ex from "../assets/images/cards/Full_Art/descripciones/electrico_ex.png"
 import psiquico_ex from "../assets/images/cards/Full_Art/descripciones/psiquico_ex.png"
+import agua_ex from "../assets/images/cards/Full_Art/descripciones/agua_ex.png"
+import fuego_ex from "../assets/images/cards/Full_Art/descripciones/fuego_ex.png"
+import lucha_ex from "../assets/images/cards/Full_Art/descripciones/lucha_ex.png"
+import planta_ex from "../assets/images/cards/Full_Art/descripciones/planta_ex.png"
+import siniestro_ex from "../assets/images/cards/Full_Art/descripciones/siniestro_ex.png"
+import normal_ex from "../assets/images/cards/Full_Art/descripciones/normal_ex.png"
+//Importacion de particulas
+import p1 from "../assets/images/cards/Full_Art/particulas/1.png"
+import p2 from "../assets/images/cards/Full_Art/particulas/2.png"
 
 export default function ImageMerger( props ) {
   const marcos = [marco_0, marco_1, marco_2, marco_3]
-  const descripciones = [electrico_ex, psiquico_ex]
+  const descripciones = [electrico_ex, psiquico_ex, agua_ex, fuego_ex, lucha_ex, planta_ex, siniestro_ex, normal_ex]
+  const particulas = [p1,p2]
 
   const canvasRef = useRef(null);
-
-
-  
-  
 
   useEffect(() => {
     const mergeImages = async () => {
@@ -33,16 +39,23 @@ export default function ImageMerger( props ) {
       // Redimensionar y dibujar fondo
       ctx.drawImage(fondo, 0, 0, 736, 1024);
 
+      // Cargar particulas transparente
+      const particula = await loadImage(particulas[Math.floor(Math.random() * particulas.length)]);
+
+      // Dibujar descripcion transparente sobre el fondo
+      ctx.drawImage(particula, 0, 0, 736, 1024);
+
       // Cargar marco transparente
       const marco = await loadImage(marcos[Math.floor(Math.random() * marcos.length)]);
 
       // Dibujar marco transparente sobre el fondo
       ctx.drawImage(marco, 0, 0, 736, 1024);
 
-      // Cargar marco transparente
+
+      // Cargar descripcion transparente
       const descripcion = await loadImage(descripciones[Math.floor(Math.random() * descripciones.length)]);
 
-      // Dibujar marco transparente sobre el fondo
+      // Dibujar descripcion transparente sobre el fondo
       ctx.drawImage(descripcion, 0, 0, 736, 1024);
 
 
