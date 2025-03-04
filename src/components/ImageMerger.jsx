@@ -4,12 +4,13 @@ import ex_full_art from "../assets/images/cards/ex_full_art.png"
 import marco_0 from "../assets/images/cards/Full_Art/Marcos/ex_0.png"
 import marco_1 from "../assets/images/cards/Full_Art/Marcos/ex_1.png"
 import marco_2 from "../assets/images/cards/Full_Art/Marcos/ex_2.png"
+import marco_3 from "../assets/images/cards/Full_Art/Marcos/ex_3.png"
 //Importacion de descripciones
 import electrico_ex from "../assets/images/cards/Full_Art/descripciones/electrico_ex.png"
 import psiquico_ex from "../assets/images/cards/Full_Art/descripciones/psiquico_ex.png"
 
 export default function ImageMerger( props ) {
-  const marcos = [marco_0, marco_1, marco_2]
+  const marcos = [marco_0, marco_1, marco_2, marco_3]
   const descripciones = [electrico_ex, psiquico_ex]
 
   const canvasRef = useRef(null);
