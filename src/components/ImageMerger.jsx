@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo} from "react";
 import ex_full_art from "../assets/images/cards/ex_full_art.png"
 //Importaciòn de Marcos
 import marco_0 from "../assets/images/cards/Full_Art/Marcos/ex_0.png"
@@ -24,59 +24,63 @@ export default function ImageMerger( props ) {
   const particulas = [p1,p2]
 
   const canvasRef = useRef(null);
+  // 1. Fijamos los índices aleatorios para que no cambien en el doble render de React
+  const aleatorios = useMemo(() => ({
+    particula: Math.floor(Math.random() * particulas.length),
+    marco: Math.floor(Math.random() * marcos.length),
+    descripcion: Math.floor(Math.random() * descripciones.length)
+  }), [props.fondoUrl]); // Se recalculan solo si cambia el fondo o cuando tú decidas
 
   useEffect(() => {
+    let isCancelled = false; // Para evitar fugas de memoria si el componente se desmonta
     const mergeImages = async () => {
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
 
-      // Cargar imagen de fondo
-      const fondo = await loadImage(props.fondoUrl);
+      // 2. IMPORTANTE: Limpiar el canvas antes de empezar a dibujar
+      ctx.clearRect(0, 0, 736, 1024);
       canvas.width = 736;
       canvas.height = 1024;
 
-      // Redimensionar y dibujar fondo
-      ctx.drawImage(fondo, 0, 0, 736, 1024);
+      try {
+        // Cargar todas las imágenes necesarias
+        const [imgFondo, imgParticula, imgMarco, imgDescripcion] = await Promise.all([
+          loadImage(props.fondoUrl),
+          loadImage(particulas[aleatorios.particula]),
+          loadImage(marcos[aleatorios.marco]),
+          loadImage(descripciones[aleatorios.descripcion])
+        ]);
 
-      // Cargar particulas transparente
-      const particula = await loadImage(particulas[Math.floor(Math.random() * particulas.length)]);
+        // Si el componente se desmontó mientras cargaban, no dibujamos
+        if (isCancelled) return;
 
-      // Dibujar descripcion transparente sobre el fondo
-      ctx.drawImage(particula, 0, 0, 736, 1024);
+        // 3. Dibujar en orden de capas
+        ctx.drawImage(imgFondo, 0, 0, 736, 1024);
+        ctx.drawImage(imgParticula, 0, 0, 736, 1024);
+        ctx.drawImage(imgMarco, 0, 0, 736, 1024);
+        ctx.drawImage(imgDescripcion, 0, 0, 736, 1024);
 
-      // Cargar marco transparente
-      const marco = await loadImage(marcos[Math.floor(Math.random() * marcos.length)]);
+        // Configurar y dibujar el texto
+        ctx.font = "italic 40px Arial";
+        ctx.fillStyle = "white";
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 3;
+        ctx.textAlign = "center";
 
-      // Dibujar marco transparente sobre el fondo
-      ctx.drawImage(marco, 0, 0, 736, 1024);
+        const x = 255;
+        const y = 80;
+        ctx.strokeText(props.title, x, y);
+        ctx.fillText(props.title, x, y);
 
-
-      // Cargar descripcion transparente
-      const descripcion = await loadImage(descripciones[Math.floor(Math.random() * descripciones.length)]);
-
-      // Dibujar descripcion transparente sobre el fondo
-      ctx.drawImage(descripcion, 0, 0, 736, 1024);
-
-
-      // Configurar el texto
-      ctx.font = "italic 40px Arial";
-      ctx.fillStyle = "white"; // Color del texto
-      ctx.strokeStyle = "black"; // Borde del texto
-      ctx.lineWidth = 3;
-      ctx.textAlign = "center";
-
-      // Posicionar el texto en el centro inferior
-      const x = 255;
-      const y = 80;
-
-      // Dibujar borde del texto para que resalte
-      ctx.strokeText(props.title, x, y);
-      ctx.fillText(props.title, x, y);
+      } catch (error) {
+        console.error("Error al fusionar imágenes:", error);
+      }
     };
 
     mergeImages();
-  }, [props.fondoUrl, ex_full_art]);
+    return () => { isCancelled = true; }; // Limpieza
+  }, [props.fondoUrl, props.title, aleatorios]); // Dependencias claras
 
   // Función para cargar imágenes como Promesas
   const loadImage = (src) => {
